@@ -1,0 +1,47 @@
+query GetAllCompanies @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it only retrieves public company information.") {
+  companies {
+    id
+    name
+    address
+    contactEmail
+    phoneNumber
+    websiteUrl
+  }
+}
+
+query GetDriverProfile($driverId: UUID!) @auth(level: USER) {
+  driver(id: $driverId) {
+    id
+    firstName
+    lastName
+    contactEmail
+    phoneNumber
+    driverLicenseNumber
+    photoUrl
+    company {
+      name
+    }
+  }
+}
+
+query GetMyVehicles @auth(level: USER, insecureReason: "This operation is safe to expose to all logged in users as it fetches vehicles associated with their company.") {
+  vehicles(where: { company: { drivers_on_company: { id: { eq_expr: "auth.uid" } } } }) {
+    id
+    make
+    model
+    year
+    licensePlate
+    color
+    company {
+      name
+    }
+  }
+}
+
+mutation LogVerification($assignmentId: UUID!, $clientIP: String!) @auth(level: USER) {
+  verificationLog_insert(data: {
+    driverVehicleAssignmentId: $assignmentId,
+    clientIP: $clientIP,
+    verificationTimestamp_expr: "request.time"
+  })
+}

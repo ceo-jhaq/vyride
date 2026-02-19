@@ -1,0 +1,141 @@
+mutation SeedData @transaction @auth(level: USER, insecureReason: "Seed data operations are only accessible to logged in users.") {
+  company_insertMany(data: [
+    {
+      id: "c4c0a7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      name: "VyRide Inc.",
+      address: "123 Main St, Anytown USA",
+      contactEmail: "contact@vyride.com",
+      phoneNumber: "555-123-4567",
+      websiteUrl: "https://www.vyride.com",
+      createdAt: "2023-01-01T00:00:00Z"
+    },
+    {
+      id: "b8b0b7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      name: "SwiftDeliver Corp.",
+      address: "456 Oak Ave, Somewhere USA",
+      contactEmail: "info@swiftdeliver.com",
+      phoneNumber: "555-987-6543",
+      websiteUrl: "https://www.swiftdeliver.com",
+      createdAt: "2023-02-15T00:00:00Z"
+    }
+  ])
+  driver_insertMany(data: [
+    {
+      id: "d1d0c7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      companyId: "c4c0a7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      firstName: "Alice",
+      lastName: "Smith",
+      contactEmail: "alice.smith@vyride.com",
+      driverLicenseNumber: "DL123456",
+      photoUrl: "https://example.com/alice.jpg",
+      createdAt: "2023-01-10T00:00:00Z",
+      dateOfBirth: "1990-05-20"
+    },
+    {
+      id: "d2d0c7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      companyId: "c4c0a7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      firstName: "Bob",
+      lastName: "Johnson",
+      contactEmail: "bob.johnson@vyride.com",
+      driverLicenseNumber: "DL654321",
+      photoUrl: "https://example.com/bob.jpg",
+      createdAt: "2023-01-12T00:00:00Z",
+      dateOfBirth: "1988-11-12"
+    },
+    {
+      id: "d3d0c7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      companyId: "b8b0b7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      firstName: "Charlie",
+      lastName: "Brown",
+      contactEmail: "charlie.brown@swiftdeliver.com",
+      driverLicenseNumber: "DL987654",
+      photoUrl: "https://example.com/charlie.jpg",
+      createdAt: "2023-03-01T00:00:00Z",
+      dateOfBirth: "1995-03-01"
+    }
+  ])
+  vehicle_insertMany(data: [
+    {
+      id: "v1v0e7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      companyId: "c4c0a7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      make: "Toyota",
+      model: "Camry",
+      year: 2020,
+      color: "Silver",
+      licensePlate: "ABC1234",
+      createdAt: "2023-01-05T00:00:00Z"
+    },
+    {
+      id: "v2v0e7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      companyId: "c4c0a7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      make: "Ford",
+      model: "Transit",
+      year: 2022,
+      color: "White",
+      licensePlate: "XYZ5678",
+      createdAt: "2023-01-07T00:00:00Z"
+    },
+    {
+      id: "v3v0e7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      companyId: "b8b0b7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      make: "Mercedes-Benz",
+      model: "Sprinter",
+      year: 2021,
+      color: "Black",
+      licensePlate: "QWE9012",
+      createdAt: "2023-02-20T00:00:00Z"
+    }
+  ])
+  driverVehicleAssignment_insertMany(data: [
+    {
+      id: "a1a0f7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      driverId: "d1d0c7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      vehicleId: "v1v0e7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      assignmentDate: "2023-01-15T00:00:00Z",
+      isActive: true,
+      qrCodeUrl: "https://example.com/qr1",
+      verificationId: "VER123"
+    },
+    {
+      id: "a2a0f7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      driverId: "d2d0c7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      vehicleId: "v2v0e7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      assignmentDate: "2023-01-18T00:00:00Z",
+      isActive: true,
+      qrCodeUrl: "https://example.com/qr2",
+      verificationId: "VER456"
+    },
+    {
+      id: "a3a0f7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      driverId: "d3d0c7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      vehicleId: "v3v0e7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      assignmentDate: "2023-03-05T00:00:00Z",
+      isActive: true,
+      qrCodeUrl: "https://example.com/qr3",
+      verificationId: "VER789"
+    }
+  ])
+  verificationLog_insertMany(data: [
+    {
+      id: "l1l0c7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      driverVehicleAssignmentId: "a1a0f7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      clientIP: "192.168.1.1",
+      verificationTimestamp: "2023-01-15T10:00:00Z",
+      userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+    },
+    {
+      id: "l2l0c7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      driverVehicleAssignmentId: "a1a0f7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      clientIP: "192.168.1.2",
+      verificationTimestamp: "2023-01-15T10:05:00Z",
+      userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+    },
+    {
+      id: "l3l0c7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      driverVehicleAssignmentId: "a2a0f7d6-3e0c-4b6a-8d0f-2e7e0e7e0e7e",
+      clientIP: "192.168.1.3",
+      verificationTimestamp: "2023-01-18T09:30:00Z",
+      userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 13_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Mobile/15E148 Safari/604.1"
+    }
+  ])
+}

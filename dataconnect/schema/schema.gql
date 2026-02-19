@@ -1,0 +1,50 @@
+type Company @table {
+  name: String!
+  address: String!
+  contactEmail: String!
+  createdAt: Timestamp!
+  phoneNumber: String
+  websiteUrl: String
+}
+
+type Driver @table {
+  company: Company!
+  firstName: String!
+  lastName: String!
+  driverLicenseNumber: String!
+  contactEmail: String!
+  photoUrl: String!
+  createdAt: Timestamp!
+  phoneNumber: String
+  dateOfBirth: Date
+}
+
+type Vehicle @table {
+  company: Company!
+  make: String!
+  model: String!
+  year: Int!
+  licensePlate: String!
+  color: String!
+  createdAt: Timestamp!
+  vin: String
+  insurancePolicyNumber: String
+}
+
+type DriverVehicleAssignment @table {
+  driver: Driver!
+  vehicle: Vehicle!
+  assignmentDate: Timestamp!
+  verificationId: String!
+  qrCodeUrl: String!
+  isActive: Boolean!
+  deactivationDate: Timestamp
+}
+
+type VerificationLog @table {
+  driverVehicleAssignment: DriverVehicleAssignment!
+  verificationTimestamp: Timestamp!
+  clientIP: String!
+  clientLocation: String
+  userAgent: String
+}
