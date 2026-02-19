@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AppLayout } from "@/components/AppLayout";
+import Footer from "@/components/Footer";
 import { DriverCard } from "@/components/DriverCard";
 import { StatusBadge } from "@/components/StatusBadge";
 import { mockDrivers } from "@/data/mockData";
@@ -10,6 +11,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Search, Shield, QrCode, AlertTriangle, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -53,17 +56,31 @@ const Index = () => {
     setReportType("");
   };
 
+  const openCamera = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+
+    const video = document.createElement("video");
+    video.srcObject = stream;
+    video.autoplay = true;
+    video.style.width = "100%";
+    video.style.height = "100%";
+
+    document.body.appendChild(video);
+  } catch (err) {
+    console.error("Camera error:", err);
+    toast({ title: "Unable to access camera. Please allow permissions!" });
+  }
+};
+
+
   return (
     <AppLayout>
       {/* Hero */}
       <section className="bg-hero-gradient relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(224_76%_40%/0.5),transparent_70%)]" />
         <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-          <div className="max-w-2xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 text-primary-foreground text-sm">
-              <Shield className="w-4 h-4" />
-              Trusted Cab Verification Platform
-            </div>
+          <div className="max-w-2xl mx-auto text-center space-y-6">  
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
               Verify Your Ride,{" "}
               <span className="text-safe">Stay Safe</span>
@@ -87,17 +104,19 @@ const Index = () => {
               <Button
                 onClick={handleSearch}
                 size="lg"
-                className="bg-safe hover:bg-safe/90 text-safe-foreground font-semibold rounded-xl shadow-lg h-13 px-8"
-              >
+                className="bg-safe hover:bg-safe/90 text-safe-foreground font-semibold rounded-xl shadow-lg h-13 px-8 flex items-center justify-center text-base max-w-xs sm:max-w-none">
                 <Search className="w-4 h-4 mr-2" />
                 Verify
               </Button>
             </div>
 
-            <button className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground/90 text-sm transition-colors">
+            <button
+              onClick={openCamera}
+              className="inline-flex items-center gap-2 text-primary-foreground/60 hover:text-primary-foreground/90 text-sm transition-colors">
               <QrCode className="w-4 h-4" />
-              Scan QR Code instead
+               Scan QR Code instead
             </button>
+
           </div>
         </div>
       </section>
@@ -191,6 +210,7 @@ const Index = () => {
           </div>
         )}
       </section>
+        <Footer />
     </AppLayout>
   );
 };

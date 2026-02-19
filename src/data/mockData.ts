@@ -1,4 +1,4 @@
-import { Driver, Vehicle, PassengerReport, SystemMetrics } from "@/types/vyride";
+import { Driver, PassengerReport, SystemMetrics } from "@/types/vyride";
 
 export const mockDrivers: Driver[] = [
   {
@@ -12,7 +12,9 @@ export const mockDrivers: Driver[] = [
     cabCompany: "Bolt Nigeria",
     state: "Lagos",
     city: "Ikeja",
-    verificationStatus: "safe",
+    email: "adebayo.o@vyride.ng",
+    phone: "+234 803 221 4456",
+    verificationStatus: "verified",
     lastVerifiedDate: "2026-02-15",
   },
   {
@@ -26,7 +28,9 @@ export const mockDrivers: Driver[] = [
     cabCompany: "Uber",
     state: "FCT",
     city: "Abuja",
-    verificationStatus: "warning",
+    email: "chinedu.o@vyride.ng",
+    phone: "+234 708 334 9901",
+    verificationStatus: "unverified",
     lastVerifiedDate: "2026-01-28",
   },
   {
@@ -40,7 +44,9 @@ export const mockDrivers: Driver[] = [
     cabCompany: "InDrive",
     state: "Kano",
     city: "Kano",
-    verificationStatus: "unsafe",
+    email: "musa.i@vyride.ng",
+    phone: "+234 812 009 7731",
+    verificationStatus: "rejected",
     lastVerifiedDate: "2025-12-10",
   },
   {
@@ -54,7 +60,9 @@ export const mockDrivers: Driver[] = [
     cabCompany: "Bolt Nigeria",
     state: "Lagos",
     city: "Lekki",
-    verificationStatus: "safe",
+    email: "funmi.a@vyride.ng",
+    phone: "+234 907 112 6634",
+    verificationStatus: "verified",
     lastVerifiedDate: "2026-02-10",
   },
   {
@@ -68,7 +76,9 @@ export const mockDrivers: Driver[] = [
     cabCompany: "Independent",
     state: "Enugu",
     city: "Enugu",
-    verificationStatus: "safe",
+    email: "emeka.n@vyride.ng",
+    phone: "+234 805 678 2210",
+    verificationStatus: "unverified",
     lastVerifiedDate: "2026-02-12",
   },
 ];
@@ -81,6 +91,12 @@ export const mockReports: PassengerReport[] = [
     reportType: "Reckless Driving",
     description: "Driver was over-speeding on the expressway and ignoring traffic signals.",
     createdAt: "2026-02-14T10:30:00Z",
+    status: "resolved",
+    adminResponse: {
+      message: "Thanks for reporting. We've reviewed the ride and issued a warning to the driver.",
+      respondedAt: "2026-02-15T12:00:00Z",
+      responderId: "ADMIN01",
+    },
   },
   {
     id: "RPT002",
@@ -89,6 +105,7 @@ export const mockReports: PassengerReport[] = [
     reportType: "Expired License",
     description: "Driver's license appears to be expired. Vehicle also had visible damage.",
     createdAt: "2026-02-13T15:45:00Z",
+    status: "open",
   },
   {
     id: "RPT003",
@@ -97,6 +114,12 @@ export const mockReports: PassengerReport[] = [
     reportType: "Harassment",
     description: "Driver made uncomfortable comments during the ride.",
     createdAt: "2026-02-12T09:20:00Z",
+    status: "resolved",
+    adminResponse: {
+      message: "We're sorry this happened. The driver has been suspended pending investigation.",
+      respondedAt: "2026-02-13T08:30:00Z",
+      responderId: "ADMIN02",
+    },
   },
   {
     id: "RPT004",
@@ -105,6 +128,30 @@ export const mockReports: PassengerReport[] = [
     reportType: "Vehicle Condition",
     description: "Brake lights not working. Interior very dirty.",
     createdAt: "2026-02-10T18:00:00Z",
+    status: "resolved",
+    adminResponse: {
+      message: "Thank you — we've notified the provider to inspect the vehicle.",
+      respondedAt: "2026-02-11T09:15:00Z",
+      responderId: "ADMIN01",
+    },
+  },
+  {
+    id: "RPT005",
+    driverId: "DRV001",
+    passengerId: "PSG001",
+    reportType: "Overcharging",
+    description: "Driver charged almost double the estimated fare shown in the app.",
+    createdAt: "2026-02-16T07:15:00Z",
+    status: "open",
+  },
+  {
+    id: "RPT006",
+    driverId: "DRV004",
+    passengerId: "PSG002",
+    reportType: "Route Deviation",
+    description: "Driver took a significantly longer route without explanation.",
+    createdAt: "2026-02-17T14:00:00Z",
+    status: "under_review",
   },
 ];
 
@@ -122,10 +169,10 @@ export const mockMetrics: SystemMetrics = {
     { week: "W4", flagged: 16, reports: 67 },
   ],
   monthlyTrend: [
-    { month: "Oct", flagged: 28, reports: 156 },
-    { month: "Nov", flagged: 35, reports: 189 },
-    { month: "Dec", flagged: 31, reports: 172 },
-    { month: "Jan", flagged: 38, reports: 201 },
-    { month: "Feb", flagged: 42, reports: 210 },
+    { month: "Oct", flagged: 28, reports: 156, passengers: 9800,  drivers: 2750 },
+    { month: "Nov", flagged: 35, reports: 189, passengers: 10400, drivers: 2890 },
+    { month: "Dec", flagged: 31, reports: 172, passengers: 10900, drivers: 2970 },
+    { month: "Jan", flagged: 38, reports: 201, passengers: 11600, drivers: 3080 },
+    { month: "Feb", flagged: 42, reports: 210, passengers: 12450, drivers: 3200 },
   ],
 };
